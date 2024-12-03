@@ -63,12 +63,10 @@ public abstract class Tank {
         tempSprite.setX(newX);
         tempSprite.setY(newY);
 
+        // Check if wall is in way of tank, will not update position if it is
         for (Wall wall : walls) {
             Bounds wallBounds = wall.getView().getBoundsInParent();
-            System.out.println("Checking against wall at: " + wallBounds);
-
             if (tempSprite.getBoundsInParent().intersects(wallBounds)) {
-                System.out.println("Collision detected with wall at: " + wallBounds);
                 return;
             }
         }

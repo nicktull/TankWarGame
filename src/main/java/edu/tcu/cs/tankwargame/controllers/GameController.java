@@ -39,8 +39,8 @@ public class GameController {
     private int score = 0;
 
     public void initialize() {
-        walls = Wall.setupWalls(gamePane);
         setupGame();
+        walls = Wall.setupWalls(gamePane);
         startGameLoop();
     }
 
@@ -156,11 +156,12 @@ public class GameController {
         List<EnemyTank> tanksToRemove = new ArrayList<>();
 
         for (Missile missile : missiles) {
+            // Check for missile collisions with enemy tanks
             for (EnemyTank tank : enemyTanks) {
                 if (missile.getBoundsInParent().intersects(tank.getBoundsInParent())) {
                     tanksToRemove.add(tank);
                     missilesToRemove.add(missile);
-                    increaseScore();  // Assuming there's a method to update score
+                    increaseScore();
                     // Trigger explosion at the tank's location
                     new Explosion(tank.getPosition(), gamePane, 1000);
                 }
@@ -170,8 +171,7 @@ public class GameController {
                 if (missile.getBoundsInParent().intersects(wall.getView().getBoundsInParent())) {
                     missilesToRemove.add(missile);
                     new Explosion(missile.getPosition(), gamePane, 1000);
-                    break;
-                    }
+                }
             }
         }
 
