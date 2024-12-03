@@ -11,7 +11,7 @@ Tank War Game is a 2D action game developed using Java and the JavaFX framework.
 ## Installation
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/tankwargame.git
+   git clone https://github.com/nicktull/TankWarGame.git
 2. **Navigate to the project directory**
    ```bash
    cd tankwargame
