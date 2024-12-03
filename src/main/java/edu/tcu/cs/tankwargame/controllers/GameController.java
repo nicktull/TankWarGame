@@ -38,7 +38,6 @@ public class GameController {
     private AnimationTimer gameLoop;
     private int score = 0;
 
-
     public void initialize() {
         walls = Wall.setupWalls(gamePane);
         setupGame();
@@ -120,10 +119,13 @@ public class GameController {
         for (Missile missile : missiles) {
             missile.move();
             if (missile.isOutOfBounds()) {
+                new Explosion(missile.getPosition(), gamePane, 1000); // Consider adding boundary conditions for explosion
                 missiles.remove(missile);
                 gamePane.getChildren().remove(missile.getView());
             }
         }
+
+
         // Update enemy tank behavior
         for (EnemyTank enemy : enemyTanks) {
             enemy.update(walls, gamePane);
@@ -154,26 +156,22 @@ public class GameController {
         List<EnemyTank> tanksToRemove = new ArrayList<>();
 
         for (Missile missile : missiles) {
-            boolean hitDetected = false;
             for (EnemyTank tank : enemyTanks) {
                 if (missile.getBoundsInParent().intersects(tank.getBoundsInParent())) {
                     tanksToRemove.add(tank);
                     missilesToRemove.add(missile);
                     increaseScore();  // Assuming there's a method to update score
-
                     // Trigger explosion at the tank's location
                     new Explosion(tank.getPosition(), gamePane, 1000);
                 }
             }
-            if(!hitDetected){
-                // Check for missile collisions with walls
-                for (Wall wall : walls) {
-                    if (missile.getBoundsInParent().intersects(wall.getView().getBoundsInParent())) {
-                        missilesToRemove.add(missile);
-                        new Explosion(missile.getPosition(), gamePane, 1000);
-                        break;
+            // Check for missile collisions with walls
+            for (Wall wall : walls) {
+                if (missile.getBoundsInParent().intersects(wall.getView().getBoundsInParent())) {
+                    missilesToRemove.add(missile);
+                    new Explosion(missile.getPosition(), gamePane, 1000);
+                    break;
                     }
-                }
             }
         }
 
