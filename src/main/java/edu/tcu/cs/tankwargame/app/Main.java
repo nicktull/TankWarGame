@@ -19,7 +19,7 @@ public class Main extends Application {
         primaryStage.setTitle("Tank War Game");
 
         // Create and set the scene
-        Scene scene = new Scene(root, 800, 750); // Adjust the size of the window
+        Scene scene = new Scene(root, 870, 760); // Adjust the size of the window
         String css = this.getClass().getResource("/styles/main.css").toExternalForm();
         scene.getStylesheets().add(css);
 
