@@ -28,4 +28,3 @@ public class Explosion {
         pause.play();
     }
 }
-
