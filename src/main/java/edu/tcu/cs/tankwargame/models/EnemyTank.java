@@ -57,40 +57,6 @@ public class EnemyTank extends Tank {
         }
     }
 
-
-
-//    @Override
-//    public Missile fireMissile() {
-//        double missileX = position.getX() + sprite.getImage().getWidth() / 2;
-//        double missileY = position.getY() + sprite.getImage().getHeight();
-//        return new Missile(missileX, missileY, direction, "enemy");
-//    }
-//
-//    // This method updates the tank's behavior each frame
-//    public void update(List<Wall> walls, Pane gamePane) {
-//        // Randomly decide to move or change direction
-//        if (random.nextInt(10) == 0) {  // 10% chance to change direction
-//            Direction[] directions = Direction.values();
-//            setDirection(directions[random.nextInt(directions.length)]);
-//        }
-//
-//        // Random movement logic
-//        double dx = 0;
-//        double dy = 0;
-//        switch (direction) {
-//            case UP: dy = -2; break;
-//            case DOWN: dy = 2; break;
-//            case LEFT: dx = -2; break;
-//            case RIGHT: dx = 2; break;
-//        }
-//        move(dx, dy, walls, gamePane);  // Move in the current direction
-//
-//        // Randomly decide to fire a missile
-//        if (random.nextInt(20) == 0) {  // 5% chance to fire a missile
-//            fireMissile();
-//        }
-//    }
-
     public Bounds getBoundsInParent() {
         return sprite.getBoundsInParent();
     }
