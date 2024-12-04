@@ -58,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>edu.tcu.cs.tankwargame/edu.tcu.cs.tankwargame.HelloApplication</mainClass>
+              <mainClass>edu.tcu.cs.tankwargame.app.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
@@ -68,6 +68,20 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version> <!-- use appropriate version -->
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>edu.tcu.cs.tankwargame.app.Main</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
       </plugin>
     </plugins>
   </build>
