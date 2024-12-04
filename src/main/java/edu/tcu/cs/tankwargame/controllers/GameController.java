@@ -12,9 +12,11 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static edu.tcu.cs.tankwargame.models.MedPack.setupMedPack;
 import static edu.tcu.cs.tankwargame.models.Wall.setupWalls;
 
 public class GameController {
@@ -35,12 +37,14 @@ public class GameController {
     private List<EnemyTank> enemyTanks;
     private List<Missile> missiles;
     private List<Wall> walls;
+    private List<MedPack> medPacks;
     private AnimationTimer gameLoop;
     private int score = 0;
 
     public void initialize() {
         setupGame();
         walls = Wall.setupWalls(gamePane);
+        medPacks = setupMedPack(gamePane);
         startGameLoop();
     }
 
@@ -52,6 +56,8 @@ public class GameController {
                 gamePane.getChildren().add(playerTank.getView());
                 walls = new ArrayList<>();
                 setupWalls(gamePane);
+                medPacks = new ArrayList<>();
+                setupMedPack(gamePane);
             } else {
                 System.out.println("Failed to initialize the player tank or its view.");
             }
@@ -76,7 +82,7 @@ public class GameController {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                updateGame(walls);
+                updateGame(walls, medPacks);
             }
         };
         gameLoop.start();
@@ -114,7 +120,7 @@ public class GameController {
         });
     }
 
-    private void updateGame(List<Wall> walls) {
+    private void updateGame(List<Wall> walls, List<MedPack> medPacks) {
         // Update player and enemy movements, missile movements, and check collisions
         for (Missile missile : missiles) {
             missile.move();
@@ -134,6 +140,7 @@ public class GameController {
             }
             enemy.update(walls, gamePane);
         }
+
         checkCollisions();
         // Check if all enemy tanks have been destroyed
         if (enemyTanks.isEmpty()) {
@@ -169,6 +176,7 @@ public class GameController {
         // Check for collisions between each missile and enemy tanks
         List<Missile> missilesToRemove = new ArrayList<>();
         List<EnemyTank> tanksToRemove = new ArrayList<>();
+        List<MedPack> medPacksToRemove = new ArrayList<>();
 
         for (Missile missile : missiles) {
             // Check for missile collisions with enemy tanks
@@ -189,7 +197,7 @@ public class GameController {
                     new Explosion(playerTank.getPosition(), gamePane, 1000);
                     showGameOverPopupLose(); // You might want to call a different method if the player loses
                 } else {
-                    playerTank.setHealth();
+                    playerTank.setNegativeHealth();
                 }
             }
 
@@ -202,9 +210,20 @@ public class GameController {
             }
         }
 
+        for (MedPack medPack : medPacks) {
+            if (playerTank.getBoundsInParent().intersects(medPack.getView().getBoundsInParent())){
+                medPacksToRemove.add(medPack);
+                playerTank.setPositiveHealth();
+                System.out.println("Removing the medpack here.");
+                gamePane.getChildren().remove(medPack.getView());
+            }
+        }
+
         // Remove collided missiles and tanks
+        medPacks.removeAll(medPacksToRemove);
         missiles.removeAll(missilesToRemove);
         enemyTanks.removeAll(tanksToRemove);
+        medPacksToRemove.forEach(medPack -> gamePane.getChildren().remove(medPack.getView()));
         missilesToRemove.forEach(missile -> gamePane.getChildren().remove(missile.getView()));
         tanksToRemove.forEach(tank -> gamePane.getChildren().remove(tank.getView()));
     }
@@ -224,8 +243,4 @@ public class GameController {
         gameLoop.stop(); // Stop the game loop
         System.exit(0);  // Exit the application
     }
-
-//    private void takeDamage(){
-//        healthbar = healthbar - 10;
-//    }
 }
