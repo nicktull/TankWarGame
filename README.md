@@ -41,7 +41,7 @@ https://www.mermaidchart.com/app/projects/00de19cb-61b4-4256-bc14-00f5ed4be153/d
 ## Exceutable Jar File
 ```bash
 java --module-path /Users/ntull/Desktop/javafx-sdk-21.0.5/lib --add-modules javafx.controls,javafx.fxml -jar OOPTankGame-1.0-SNAPSHOT.jar
-
+```
 
 ## Credits
 Nicholas Tullbane
