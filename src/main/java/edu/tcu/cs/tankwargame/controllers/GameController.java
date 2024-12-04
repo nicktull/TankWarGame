@@ -19,8 +19,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import static edu.tcu.cs.tankwargame.models.MedPack.setupMedPack;
 import static edu.tcu.cs.tankwargame.models.Wall.setupWalls;
 
+/**
+ * Controls the gameplay and interactions in the Tank War Game.
+ * This controller manages the game state, player inputs, and rendering updates within the game pane.
+ */
 public class GameController {
-
     @FXML
     private Pane gamePane;
 
@@ -41,6 +44,10 @@ public class GameController {
     private AnimationTimer gameLoop;
     private int score = 0;
 
+    /**
+     * Initializes the game by setting up the game environment,
+     * including tanks, walls, and med packs.
+     */
     public void initialize() {
         setupGame();
         walls = Wall.setupWalls(gamePane);
@@ -48,6 +55,9 @@ public class GameController {
         startGameLoop();
     }
 
+    /**
+     * Sets up the game elements and loads them into the game pane.
+     */
     private void setupGame() {
         try {
             playerTank = GameObjectFactory.createPlayerTank(100, 100, Direction.UP);
@@ -78,6 +88,9 @@ public class GameController {
 
     }
 
+    /**
+     * Starts the main game loop, which handles updates to the game state at fixed time intervals.
+     */
     private void startGameLoop() {
         gameLoop = new AnimationTimer() {
             @Override
@@ -88,6 +101,10 @@ public class GameController {
         gameLoop.start();
     }
 
+    /**
+     * Configures event handlers for keyboard input, defining how the game reacts to player actions.
+     * @param scene The main scene of the game which captures keyboard events.
+     */
     public void setupEventHandlers(Scene scene) {
         // Handling key events for player input
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -120,6 +137,11 @@ public class GameController {
         });
     }
 
+    /**
+     * Updates the game state, including movements and interactions between game elements.
+     * @param walls List of walls in the game to check for collisions.
+     * @param medPacks List of medical packs available for the player to collect.
+     */
     private void updateGame(List<Wall> walls, List<MedPack> medPacks) {
         // Update player and enemy movements, missile movements, and check collisions
         for (Missile missile : missiles) {
@@ -150,6 +172,9 @@ public class GameController {
         updateUI();
     }
 
+    /**
+     * Displays a victory popup when all enemy tanks are destroyed.
+     */
     private void showGameOverPopupWin() {
         javafx.application.Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -161,6 +186,9 @@ public class GameController {
         });
     }
 
+    /**
+     * Displays a game over popup when the player is destroyed.
+     */
     private void showGameOverPopupLose(){
         javafx.application.Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -172,6 +200,9 @@ public class GameController {
         });
     }
 
+    /**
+     * Checks and handles collisions between game elements such as tanks, missiles, and walls.
+     */
     private void checkCollisions() {
         // Check for collisions between each missile and enemy tanks
         List<Missile> missilesToRemove = new ArrayList<>();
@@ -228,16 +259,26 @@ public class GameController {
         tanksToRemove.forEach(tank -> gamePane.getChildren().remove(tank.getView()));
     }
 
+    /**
+     * Increases the player's score.
+     */
     private void increaseScore(){
         this.score += 10;
     }
 
+    /**
+     * Updates the user interface elements such as health and score displays.
+     */
     private void updateUI() {
         healthBar.setProgress(playerTank.getHealth() / 100.0);
         scoreLabel.setText("Score: " + score);
         enemyCountLabel.setText("Enemy tanks left: " + enemyTanks.size());
     }
 
+    /**
+     * Handles the event triggered by pressing the exit button.
+     * Stops the game loop and exits the application.
+     */
     @FXML
     private void onExitPressed() {
         gameLoop.stop(); // Stop the game loop

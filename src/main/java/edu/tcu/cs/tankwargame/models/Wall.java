@@ -7,9 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a wall object in the Tank War Game.
+ * This class is used to create and manage the walls on the game map.
+ */
 public class Wall {
     private ImageView view;
 
+    /**
+     * Constructs a new wall and adds it to the game pane.
+     * @param x The x-coordinate where the wall will be placed on the game pane.
+     * @param y The y-coordinate where the wall will be placed on the game pane.
+     * @param gamePane The pane to which the wall is to be added.
+     */
     public Wall(double x, double y, Pane gamePane) {
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/wall.jpg")));
         this.view = new ImageView(image);
@@ -21,6 +31,12 @@ public class Wall {
 
     }
 
+    /**
+     * Static method to add a predefined set of walls into the game pane.
+     * This method helps to easily populate the game with walls at specified locations.
+     * @param gamePane The pane where the walls will be added.
+     * @return A list of Wall objects that were added to the game pane.
+     */
     // Static method to add walls directly into the gamePane with predefined locations
     public static List<Wall> setupWalls(Pane gamePane) {
         // Predefined wall locations
@@ -39,6 +55,10 @@ public class Wall {
         return walls;
     }
 
+    /**
+     * Gets the ImageView of the wall.
+     * @return The ImageView that represents the wall.
+     */
     public ImageView getView() {
         return view;
     }

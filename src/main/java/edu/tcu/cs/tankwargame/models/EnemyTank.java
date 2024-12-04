@@ -5,20 +5,37 @@ import javafx.scene.layout.Pane;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents an enemy tank in the Tank War Game.
+ * This class extends the abstract Tank class, implementing enemy-specific behaviors such as autonomous movement and firing.
+ */
 public class EnemyTank extends Tank {
     private Random random = new Random();
     private long lastFireTime = 0;
     private long fireDelay = 3000;
 
+    /**
+     * Constructs an EnemyTank with specified position and direction.
+     * @param x The initial x-coordinate of the tank.
+     * @param y The initial y-coordinate of the tank.
+     * @param direction The initial direction the tank is facing.
+     */
     public EnemyTank(double x, double y, Direction direction) {
         super(x, y, direction);
     }
 
+    /**
+     * Initializes the graphical representation of the tank.
+     */
     @Override
     protected void initializeGraphics() {
         updateImage();
     }
 
+    /**
+     * Fires a missile if the fire delay has elapsed since the last missile was fired.
+     * @return A new Missile object if fired, null otherwise.
+     */
     @Override
     public Missile fireMissile() {
         long currentTime = System.currentTimeMillis();
@@ -31,6 +48,11 @@ public class EnemyTank extends Tank {
         return null;
     }
 
+    /**
+     * Updates the behavior of the tank, including movement and firing missiles.
+     * @param walls A list of Wall objects to consider for collision detection.
+     * @param gamePane The game pane in which the tank operates, used for adding missile views if fired.
+     */
     // This method updates the tank's behavior each frame
     public void update(List<Wall> walls, Pane gamePane) {
         // Randomly decide to move or change direction
@@ -57,6 +79,10 @@ public class EnemyTank extends Tank {
         }
     }
 
+    /**
+     * Returns the bounds of the tank's sprite within its parent node.
+     * @return The bounds of the sprite within the parent node.
+     */
     public Bounds getBoundsInParent() {
         return sprite.getBoundsInParent();
     }
