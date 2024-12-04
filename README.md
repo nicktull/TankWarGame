@@ -1,7 +1,7 @@
 # Tank War Game
 
 ## Introduction
-Tank War Game is a 2D action game developed using Java and the JavaFX framework. Players control tanks, navigate through various obstacles, and engage enemy tanks controlled by AI. The game features engaging gameplay elements such as strategic movement, missile firing, and dynamic collision detection with terrain and other objects.
+Tank War Game is a 2D action game developed using Java and the JavaFX framework. Players control tanks, navigate through various obstacles, and engage enemy tanks controlled by AI. The game features engaging gameplay elements such as strategic movement, missile firing, and dynamic collision detection with terrain and other objects. This game implements multiple object oriented design pattersn such as Abstract Factory, Observer, and Singleton.
 
 ## System Requirements
 - **Java**: Version 11 or higher
