@@ -5,7 +5,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -92,13 +91,5 @@ public abstract class Tank {
     public int getHealth() {
         return health;
     }
-
-    //    public void takeDamage(int damage) {
-//        this.health -= damage;
-//        if (this.health <= 0) {
-//            health = 0;
-//        }
-//    }
-
 
 }

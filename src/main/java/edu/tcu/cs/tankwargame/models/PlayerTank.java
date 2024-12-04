@@ -41,7 +41,13 @@ public class PlayerTank extends Tank {
         return sprite.getBoundsInParent();
     }
 
-    public void setHealth() {
+    public void setNegativeHealth() {
         health = health - 25;
+    }
+
+    public void setPositiveHealth() {
+        if (health < 100){
+            health = health + 25;
+        }
     }
 }
