@@ -125,27 +125,42 @@ public class GameController {
             }
         }
 
-
         // Update enemy tank behavior
         for (EnemyTank enemy : enemyTanks) {
+            Missile enemyMissile = enemy.fireMissile();
+            if (enemyMissile != null) {
+                missiles.add(enemyMissile);
+                gamePane.getChildren().add(enemyMissile.getView());
+            }
             enemy.update(walls, gamePane);
         }
         checkCollisions();
         // Check if all enemy tanks have been destroyed
         if (enemyTanks.isEmpty()) {
             gameLoop.stop(); // Stop the game loop
-            showGameOverPopup(); // Show game over popup
+            showGameOverPopupWin(); // Show game over popup
         }
         updateUI();
     }
 
-    private void showGameOverPopup() {
+    private void showGameOverPopupWin() {
         javafx.application.Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Game Over");
             alert.setHeaderText("Congratulations!");
             alert.setContentText("You have destroyed all enemy tanks!");
             alert.setOnHidden(evt -> onExitPressed()); // Optional: call onExitPressed() when alert is closed
+            alert.show();
+        });
+    }
+
+    private void showGameOverPopupLose(){
+        javafx.application.Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Over");
+            alert.setHeaderText("You lost!");
+            alert.setContentText("You have been destroyed!");
+            alert.setOnHidden(evt -> onExitPressed());
             alert.show();
         });
     }
@@ -158,7 +173,7 @@ public class GameController {
         for (Missile missile : missiles) {
             // Check for missile collisions with enemy tanks
             for (EnemyTank tank : enemyTanks) {
-                if (missile.getBoundsInParent().intersects(tank.getBoundsInParent())) {
+                if (missile.getOwner().equals("player") && missile.getBoundsInParent().intersects(tank.getBoundsInParent())) {
                     tanksToRemove.add(tank);
                     missilesToRemove.add(missile);
                     increaseScore();
@@ -166,6 +181,14 @@ public class GameController {
                     new Explosion(tank.getPosition(), gamePane, 1000);
                 }
             }
+
+            // Check if this missile hits the player tank
+            if (missile.getOwner().equals("enemy") && missile.getBoundsInParent().intersects(playerTank.getBoundsInParent())) {
+                missilesToRemove.add(missile);
+                new Explosion(playerTank.getPosition(), gamePane, 1000);
+                showGameOverPopupLose(); // You might want to call a different method if the player loses
+            }
+
             // Check for missile collisions with walls
             for (Wall wall : walls) {
                 if (missile.getBoundsInParent().intersects(wall.getView().getBoundsInParent())) {

@@ -1,5 +1,7 @@
 package edu.tcu.cs.tankwargame.models;
 
+import javafx.geometry.Bounds;
+
 public class PlayerTank extends Tank {
     public PlayerTank(double x, double y, Direction direction) {
         super(x, y, direction);
@@ -35,4 +37,7 @@ public class PlayerTank extends Tank {
         return new Missile(missileX, missileY, direction, "player");
     }
 
+    public Bounds getBoundsInParent() {
+        return sprite.getBoundsInParent();
+    }
 }
