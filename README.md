@@ -35,7 +35,7 @@ Ensure JavaFX libraries are added to your project settings and configure VM opti
   - Press SPACEBAR to fire missiles.
 - Destroy all enemy tanks to win.
 
-## Mermaid.js Link
+## Mermaid.js Link - UML Diagram
 https://www.mermaidchart.com/app/projects/00de19cb-61b4-4256-bc14-00f5ed4be153/diagrams/64f664e6-c8fe-4250-9ee3-f789e70e29df/version/v0.1/edit
 
 ## Exceutable Jar File
