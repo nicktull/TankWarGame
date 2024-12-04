@@ -45,7 +45,7 @@ https://www.mermaidchart.com/app/projects/00de19cb-61b4-4256-bc14-00f5ed4be153/d
 ## Running the Program
 1. Download the jar executable labeled OOPTankGame-1.0-SNAPSHOT.jar
 
-https://github.com/nicktull/TankWarGame/tree/main/Jar
+   - https://github.com/nicktull/TankWarGame/tree/main/Jar
 
 2. Locate your path to the JavaFX SDK lib directory and copy it to your clipboard.
 3. Locate your jar file
