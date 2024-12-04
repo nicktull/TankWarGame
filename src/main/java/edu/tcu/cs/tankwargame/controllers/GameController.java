@@ -185,8 +185,12 @@ public class GameController {
             // Check if this missile hits the player tank
             if (missile.getOwner().equals("enemy") && missile.getBoundsInParent().intersects(playerTank.getBoundsInParent())) {
                 missilesToRemove.add(missile);
-                new Explosion(playerTank.getPosition(), gamePane, 1000);
-                showGameOverPopupLose(); // You might want to call a different method if the player loses
+                if (playerTank.getHealth() <= 25){
+                    new Explosion(playerTank.getPosition(), gamePane, 1000);
+                    showGameOverPopupLose(); // You might want to call a different method if the player loses
+                } else {
+                    playerTank.setHealth();
+                }
             }
 
             // Check for missile collisions with walls
@@ -220,4 +224,8 @@ public class GameController {
         gameLoop.stop(); // Stop the game loop
         System.exit(0);  // Exit the application
     }
+
+//    private void takeDamage(){
+//        healthbar = healthbar - 10;
+//    }
 }

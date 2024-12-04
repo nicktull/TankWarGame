@@ -40,4 +40,8 @@ public class PlayerTank extends Tank {
     public Bounds getBoundsInParent() {
         return sprite.getBoundsInParent();
     }
+
+    public void setHealth() {
+        health = health - 25;
+    }
 }
