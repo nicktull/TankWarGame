@@ -25,7 +25,7 @@ For Eclipse: File -> Import -> Existing Projects into Workspace -> Select tankwa
 Ensure JavaFX libraries are added to your project settings and configure VM options to include the path to javafx.controls and javafx.fxml.
 
 ## Running the Program
-1. Download the jar executable labeled OOPTankGame-1.0-SNAPSHOT.jar
+1. Download the jar executable labeled TankWarGame-1.0-SNAPSHOT.jar
 
    - https://github.com/nicktull/TankWarGame/tree/main/Jar
 
@@ -33,7 +33,7 @@ Ensure JavaFX libraries are added to your project settings and configure VM opti
 3. Locate your jar file
 4. Once you have copied that path, run the following command:
 ```bash
-java --module-path /path/to/javafx-sdk-21/lib --add-modules javafx.controls,javafx.fxml -jar OOPTankGame-1.0-SNAPSHOT.jar
+java --module-path /path/to/javafx-sdk-21/lib --add-modules javafx.controls,javafx.fxml -jar TankWarGame-1.0-SNAPSHOT.jar
 ```
 
 ## How to Play
